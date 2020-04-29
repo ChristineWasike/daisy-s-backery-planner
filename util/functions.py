@@ -2,6 +2,17 @@ import calendar
 import time
 from models.Order import *
 
+# Some Dummy orders to test some of the functions
+order1 = Order("Birthday1", (3, 21), 2, "red", "started")
+order2 = Order("Birthday2", (1, 11), 1, "yellow", "started")
+order3 = Order("Birthday3", (7, 30), 2, "red", "started")
+order4 = Order("party1", (2, 1), 2, "red", "started")
+order5 = Order("Wedding1", (5, 12), 1, "green", "started")
+order6 = Order("Wedding2", (6, 17), 1, "yellow", "started")
+
+daisy_orders = {order1.title: order1, order2.title: order2, order3.title: order3,
+                order4.title: order4, order5.title: order5, order6.title: order6}
+
 
 # General Program Function
 # Function that keeps the program running depending on the users choice
@@ -51,16 +62,26 @@ def enter_order():
     order_code = input("Enter order code(Red, Yellow, Green): \n")
     order_status = input("Enter order status: \n")
     new_order = Order(order_title, order_date, order_labour, order_code, order_status)
+    daisy_orders[new_order.title] = new_order
 
 
 # Function that displays the orders
 def view_orders():
-    pass
+    index = 1
+    for order in daisy_orders:
+        print(str(index) + ". " + order)
+        index += 1
 
 
 # delete function that deletes orders from Daisy's scheduler in case a customer
 def delete_order():
-    pass
+    view_orders()
+    delete = input("Which order do you want to delete?\n")
+    for order in daisy_orders:
+        if delete == order:
+            print(daisy_orders[order].title + " has been removed.")
+            daisy_orders.pop(order)
+            break
 
 
 # update function that enables Daisy to make edits to the details of the order
