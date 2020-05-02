@@ -59,7 +59,7 @@ def enter_order():
     order_date = pick_date()
     order_labour = int(input("How many people are assigned to this task?(enter a number) \n"))
     #     TODO I need help with enum
-    order_code = input("Enter order code(Red, Yellow, Green): \n")
+    order_code = input("Enter order code(Red, Yellow, Green):\n")
     order_status = input("Enter order status: \n")
     new_order = Order(order_title, order_date, order_labour, order_code, order_status)
     daisy_orders[new_order.title] = new_order
