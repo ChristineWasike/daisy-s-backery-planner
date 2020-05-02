@@ -5,3 +5,8 @@ what she's been able to work on to clearing orders upon successful delivery and 
 """
 
 # TODO run the entire program from here
+
+from util.functions import *
+
+# user_main_menu()
+enter_order()
