@@ -3,15 +3,15 @@ import time
 from models.Order import *
 
 # Some Dummy orders to test some of the functions
-order1 = Order("Birthday1", (3, 21), 2, "red", "started")
-order2 = Order("Birthday2", (1, 11), 1, "yellow", "started")
-order3 = Order("Birthday3", (7, 30), 2, "red", "started")
-order4 = Order("party1", (2, 1), 2, "red", "started")
-order5 = Order("Wedding1", (5, 12), 1, "green", "started")
-order6 = Order("Wedding2", (6, 17), 1, "yellow", "started")
+order1 = Order("Birthday1", (3, 21, 2020), (7, 20, 2020), 2, "red", "started", 1000)
+order2 = Order("Birthday2", (1, 11, 2020), (7, 20, 2020), 1, "yellow", "started", 1000)
+order3 = Order("Birthday3", (7, 30, 2020), (7, 20, 2020), 2, "red", "started", 20000)
+order4 = Order("party1", (2, 1, 2020), (7, 20, 2020), 2, "red", "started", 32000)
+order5 = Order("Wedding1", (5, 12, 2020), (7, 20, 2020), 1, "green", "started", 25000)
+order6 = Order("Wedding2", (6, 17, 2020), (7, 20, 2020), 1, "yellow", "started", 15000)
 
-daisy_orders = {order1.title: order1, order2.title: order2, order3.title: order3,
-                order4.title: order4, order5.title: order5, order6.title: order6}
+daisy_orders = {order1.id: order1, order2.id: order2, order3.id: order3,
+                order4.id: order4, order5.id: order5, order6.id: order6}
 
 
 # General Program Function
@@ -54,15 +54,17 @@ def user_main_menu():
 
 # Function to collect instant variables and creates order instance
 def enter_order():
+    result = time.localtime()
     order_title = input("Enter the title: \n")
-    #     TODO Figure out how to store the day and date. Tuple? list?
-    order_date = pick_date()
+    order_due_date = pick_date()
+    order_time_stamp = (result.tm_mday, result.tm_mon, result.tm_year)
     order_labour = int(input("How many people are assigned to this task?(enter a number) \n"))
-    #     TODO I need help with enum
     order_code = input("Enter order code(Red, Yellow, Green):\n")
     order_status = input("Enter order status: \n")
-    new_order = Order(order_title, order_date, order_labour, order_code, order_status)
-    daisy_orders[new_order.title] = new_order
+    order_price = int(input("Enter the price of this order:\n"))
+    new_order = Order(order_title, order_due_date, order_time_stamp, order_labour, order_code, order_status,
+                      order_price)
+    daisy_orders[new_order.id] = new_order
 
 
 # Function that displays the orders
@@ -105,12 +107,18 @@ def pick_date():
             print(calendar.month(result.tm_year, result.tm_mon + 1))
             day = int(input("Enter the order's due day(1-7): "))
             date = int(input("Enter the order's due date(1-31): "))
-            return day, date
+            return day, date, result.tm_year
         # Display current month and get user input
         elif user_input == "no" or user_input == "No":
             print(calendar.month(result.tm_year, result.tm_mon))
             day = int(input("Enter the order's due day(1-7): "))
             date = int(input("Enter the order's due date(1-31): "))
-            return day, date
+            return day, date, result.tm_year
         else:
             return "The option you entered is invalid"
+
+    else:
+        print(calendar.month(result.tm_year, result.tm_mon))
+        day = int(input("Enter the order's due day(1-7): "))
+        date = int(input("Enter the order's due date(1-31): "))
+        return day, date, result.tm_year

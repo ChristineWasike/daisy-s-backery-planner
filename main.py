@@ -9,8 +9,10 @@ what she's been able to work on to clearing orders upon successful delivery and 
 from util.functions import *
 
 
-user_status = 'yes'
-while user_status == 'yes':
-    user_main_menu()
-# enter_order()
+# user_status = 'yes'
+# while user_status == 'yes':
+#     user_main_menu()
+# # enter_order()
 
+date = pick_date()
+print(date)
