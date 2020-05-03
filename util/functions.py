@@ -3,6 +3,7 @@ import time
 from models.Order import *
 
 # Some Dummy orders to test some of the functions
+
 order1 = Order("Birthday1", (3, 21, 2020), (7, 20, 2020), 2, "red", "started", 1000)
 order2 = Order("Birthday2", (1, 11, 2020), (7, 20, 2020), 1, "yellow", "started", 1000)
 order3 = Order("Birthday3", (7, 30, 2020), (7, 20, 2020), 2, "red", "started", 20000)
@@ -72,7 +73,7 @@ def enter_order():
 def view_orders():
     index = 1
     for order in daisy_orders:
-        print(str(index) + ". " + order)
+        print(str(index) + ". " + str(order))
         index += 1
 
 
@@ -91,6 +92,11 @@ def delete_order():
 def update_order():
     pass
 
+# Function for the second menu
+def update_menu():
+    user_update_menu_choice = int(input("Here is what you can update:\n"
+                                        "1. "))
+    pass
 
 # mark_as_done function that moves all completed orders to the paid list
 def clear_order():
