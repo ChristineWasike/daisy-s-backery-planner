@@ -12,7 +12,6 @@ from util.functions import *
 # user_status = 'yes'
 # while user_status == 'yes':
 #     user_main_menu()
-# # enter_order()
 
-date = pick_date()
-print(date)
+
+print(pick_date())
