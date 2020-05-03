@@ -8,10 +8,19 @@ what she's been able to work on to clearing orders upon successful delivery and 
 
 from util.functions import *
 
-
-user_status = 'yes'
-while user_status == 'yes':
-    user_main_menu()
+# user_main_menu()
+# enter_order()
 
 
-# print(pick_date())
+# my_order = Order("Coffee Muffin", (12, 5, 2020), (12, 5, 2020), 1, "Red", "Pending", 40000)
+# print(my_order.title, my_order.status)
+# my_order.status = "Ongoing"
+# print(my_order.title, my_order.status)
+#
+# i = input("Please enter name[Jack]:")
+#
+#
+# user_status = 'yes'
+# while user_status == 'yes':
+#     user_main_menu()
+update_order()

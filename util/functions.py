@@ -3,7 +3,7 @@ import time
 from models.Order import *
 
 # Some Dummy orders to test some of the functions
-
+# TODO add the months here Rachel
 order1 = Order("Birthday1", (3, 21, 2020), (7, 20, 2020), 2, "red", "started", 1000)
 order2 = Order("Birthday2", (1, 11, 2020), (7, 20, 2020), 1, "yellow", "started", 1000)
 order3 = Order("Birthday3", (7, 30, 2020), (7, 20, 2020), 2, "red", "started", 20000)
@@ -62,6 +62,7 @@ def enter_order():
     order_labour = int(input("How many people are assigned to this task?(enter a number) \n"))
     order_code = input("Enter order code(Red, Yellow, Green):\n")
     order_status = input("Enter order status: \n")
+    # TODO 3 options for the status
     order_price = int(input("Enter the price of this order:\n"))
     new_order = Order(order_title, order_due_date, order_time_stamp, order_labour, order_code, order_status,
                       order_price)
@@ -71,10 +72,8 @@ def enter_order():
 # Function that displays the orders
 # TODO sort the ids and display in ascending order
 def view_orders():
-    index = 1
     for order in daisy_orders:
-        print(str(index) + ". " + str(order))
-        index += 1
+        print(str(order) + ". " + daisy_orders[order].title)
 
 
 # delete function that deletes orders from Daisy's scheduler in case a customer
@@ -90,7 +89,16 @@ def delete_order():
 
 # update function that enables Daisy to make edits to the details of the order
 def update_order():
-    pass
+    # Change attr order, Mini menu, view or search(linear)
+    # Within the order they can edit the priority_code, status, assigned_to, due_date
+    update_choice = input("Would you like to \n"
+                          "1. View the orders \n"
+                          "2. Search for the order by id\n")
+    if update_choice is 1:
+        pass
+    elif update_choice:
+        pass
+
 
 # Function for the second menu
 def update_menu():
@@ -98,47 +106,44 @@ def update_menu():
                                         "1. "))
     pass
 
+
 # mark_as_done function that moves all completed orders to the paid list
 def clear_order():
     pass
 
 
+def date_day(month, year):
+    day = int(input("Enter the order's due day(1-7): "))
+    date = int(input("Enter the order's due date(1-31): "))
+    if 1 <= day <= 7 and 1 <= date <= 31:
+        return day, date, month, year
+    else:
+        print("Sorry, invalid date or day. Please try again.")
+        return date_day(month, year)
+
+
 # Function that gets the date from the user
 def pick_date():
     result = time.localtime()
+
     # Give the user the option if it is towards the end of the month to place to order to the following month
+
     if 25 < result.tm_mday < 31:
         user_input = input("Is the order due next month?(Yes/No)")
         # Display next month and get user input
         if user_input == "yes" or user_input == "Yes":
             print(calendar.month(result.tm_year, result.tm_mon + 1))
-            day = int(input("Enter the order's due day(1-7): "))
-            date = int(input("Enter the order's due date(1-31): "))
-            if 1 <= day <= 7:
-                return day, date, result.tm_year
-            else:
-                return "The number you entered is not valid"
+            return date_day(result.tm_mon, result.tm_year)
         # Display current month and get user input
         elif user_input == "no" or user_input == "No":
             print(calendar.month(result.tm_year, result.tm_mon))
-            day = int(input("Enter the order's due day(1-7): "))
-            date = int(input("Enter the order's due date(1-31): "))
-            if 1 <= day <= 7 and 1 <= date <= 31:
-                return day, date, result.tm_year
-            else:
-                return "The number you entered is not valid"
+            return date_day(result.tm_mon, result.tm_year)
         else:
             return "The option you entered is invalid"
 
     else:
         print(calendar.month(result.tm_year, result.tm_mon))
-        day = int(input("Enter the order's due day(1-7): "))
-        date = int(input("Enter the order's due date(1-31): "))
-        if 1 <= day <= 7 and 1 <= date <= 31:
-            return day, date, result.tm_year
-        else:
-            return "The number you entered is not valid"
-
+        return date_day(result.tm_mon, result.tm_year)
 
 # Function sort by that will sort orders according to the priority code or date
 # TODO sort by priority code or date using switch
