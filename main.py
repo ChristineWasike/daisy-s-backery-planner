@@ -9,4 +9,11 @@ what she's been able to work on to clearing orders upon successful delivery and 
 from util.functions import *
 
 # user_main_menu()
-enter_order()
+# enter_order()
+
+my_order = Order("Coffee Muffin", "12-05-2020", "Daisy", "High Priority", "Pending")
+print(my_order.title, my_order.status)
+my_order.status = "Ongoing"
+print(my_order.title, my_order.status)
+
+i = input("Please enter name[Jack]:")
