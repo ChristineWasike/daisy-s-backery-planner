@@ -3,6 +3,7 @@ import time
 from models.Order import *
 
 # Some Dummy orders to test some of the functions
+# TODO add the months here Rachel
 order1 = Order("Birthday1", (3, 21, 2020), (7, 20, 2020), 2, "red", "started", 1000)
 order2 = Order("Birthday2", (1, 11, 2020), (7, 20, 2020), 1, "yellow", "started", 1000)
 order3 = Order("Birthday3", (7, 30, 2020), (7, 20, 2020), 2, "red", "started", 20000)
@@ -61,6 +62,7 @@ def enter_order():
     order_labour = int(input("How many people are assigned to this task?(enter a number) \n"))
     order_code = input("Enter order code(Red, Yellow, Green):\n")
     order_status = input("Enter order status: \n")
+    # TODO 3 options for the status
     order_price = int(input("Enter the price of this order:\n"))
     new_order = Order(order_title, order_due_date, order_time_stamp, order_labour, order_code, order_status,
                       order_price)
@@ -70,10 +72,8 @@ def enter_order():
 # Function that displays the orders
 # TODO sort the ids and display in ascending order
 def view_orders():
-    index = 1
     for order in daisy_orders:
-        print(str(index) + ". " + order)
-        index += 1
+        print(str(order) + ". " + daisy_orders[order].title)
 
 
 # delete function that deletes orders from Daisy's scheduler in case a customer
@@ -89,7 +89,14 @@ def delete_order():
 
 # update function that enables Daisy to make edits to the details of the order
 def update_order():
-    pass
+    # Change attr order, Mini menu, view or search(linear)
+    # Within the order they can edit the priority_code, status, assigned_to, due_date
+    update_choice = input("Would you like to \n"
+                          "1. View the orders \n"
+                          "2. Search for the order by id\n")
+    if update_choice is 1:
+        pass
+    elif update_choicei
 
 
 # mark_as_done function that moves all completed orders to the paid list

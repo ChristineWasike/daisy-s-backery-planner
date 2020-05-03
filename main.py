@@ -11,7 +11,7 @@ from util.functions import *
 # user_main_menu()
 # enter_order()
 
-# my_order = Order("Coffee Muffin", "12-05-2020", "Daisy", "High Priority", "Pending")
+# my_order = Order("Coffee Muffin", (12, 5, 2020), (12, 5, 2020), 1, "Red", "Pending", 40000)
 # print(my_order.title, my_order.status)
 # my_order.status = "Ongoing"
 # print(my_order.title, my_order.status)
@@ -22,6 +22,4 @@ from util.functions import *
 # user_status = 'yes'
 # while user_status == 'yes':
 #     user_main_menu()
-
-
-print(pick_date())
+update_order()

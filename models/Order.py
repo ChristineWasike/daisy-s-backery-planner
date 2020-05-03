@@ -7,7 +7,7 @@ class Order:
 
     # These are the attributes that each order must have to be initialised
     def __init__(self, title, due_date, time_stamp, assigned_to, priority_code, status, price):
-        self.id = next(self.newId)
+        self.id = next(self.newId) + 1
         self.title = title
         self.due_date = due_date
         self.time_stamp = time_stamp
