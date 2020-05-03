@@ -68,6 +68,7 @@ def enter_order():
 
 
 # Function that displays the orders
+# TODO sort the ids and display in ascending order
 def view_orders():
     index = 1
     for order in daisy_orders:
@@ -96,29 +97,38 @@ def clear_order():
     pass
 
 
+def date_day(month, year):
+    day = int(input("Enter the order's due day(1-7): "))
+    date = int(input("Enter the order's due date(1-31): "))
+    if 1 <= day <= 7 and 1 <= date <= 31:
+        return day, date, month, year
+    else:
+        print("Sorry, invalid date or day. Please try again.")
+        return date_day(month, year)
+
+
 # Function that gets the date from the user
 def pick_date():
     result = time.localtime()
-    # Give the user the option if it is towards the end of the month to place their order to the next month
+
+    # Give the user the option if it is towards the end of the month to place to order to the following month
+
     if 25 < result.tm_mday < 31:
         user_input = input("Is the order due next month?(Yes/No)")
         # Display next month and get user input
         if user_input == "yes" or user_input == "Yes":
             print(calendar.month(result.tm_year, result.tm_mon + 1))
-            day = int(input("Enter the order's due day(1-7): "))
-            date = int(input("Enter the order's due date(1-31): "))
-            return day, date, result.tm_year
+            return date_day(result.tm_mon, result.tm_year)
         # Display current month and get user input
         elif user_input == "no" or user_input == "No":
             print(calendar.month(result.tm_year, result.tm_mon))
-            day = int(input("Enter the order's due day(1-7): "))
-            date = int(input("Enter the order's due date(1-31): "))
-            return day, date, result.tm_year
+            return date_day(result.tm_mon, result.tm_year)
         else:
             return "The option you entered is invalid"
 
     else:
         print(calendar.month(result.tm_year, result.tm_mon))
-        day = int(input("Enter the order's due day(1-7): "))
-        date = int(input("Enter the order's due date(1-31): "))
-        return day, date, result.tm_year
+        return date_day(result.tm_mon, result.tm_year)
+
+# Function sort by that will sort orders according to the priority code or date
+# TODO sort by priority code or date using switch

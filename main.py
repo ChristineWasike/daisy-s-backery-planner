@@ -8,7 +8,6 @@ what she's been able to work on to clearing orders upon successful delivery and 
 
 from util.functions import *
 
-
 # user_main_menu()
 # enter_order()
 
@@ -23,10 +22,6 @@ from util.functions import *
 # user_status = 'yes'
 # while user_status == 'yes':
 #     user_main_menu()
-#
-#
-# date = pick_date()
-# print(date)
-pick_date()
-# view_orders()
 
+
+print(pick_date())
