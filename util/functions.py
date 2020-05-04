@@ -1,15 +1,16 @@
 import calendar
 import time
+import array as arr
 from models.Order import *
 
 # Some Dummy orders to test some of the functions
 # TODO add the months here Rachel
-order1 = Order("Birthday1", (3, 21, 2020), (7, 20, 2020), 2, "red", "started", 1000)
-order2 = Order("Birthday2", (1, 11, 2020), (7, 20, 2020), 1, "yellow", "started", 1000)
-order3 = Order("Birthday3", (7, 30, 2020), (7, 20, 2020), 2, "red", "started", 20000)
-order4 = Order("party1", (2, 1, 2020), (7, 20, 2020), 2, "red", "started", 32000)
-order5 = Order("Wedding1", (5, 12, 2020), (7, 20, 2020), 1, "green", "started", 25000)
-order6 = Order("Wedding2", (6, 17, 2020), (7, 20, 2020), 1, "yellow", "started", 15000)
+order1 = Order("Birthday1", (3, 21, 5, 2020), (7, 20, 7, 2020), 2, "red", "started", 1000)
+order2 = Order("Birthday2", (1, 11, 5, 2020), (7, 20, 7, 2020), 1, "yellow", "started", 1000)
+order3 = Order("Birthday3", (7, 30, 5, 2020), (7, 20, 7, 2020), 2, "red", "started", 20000)
+order4 = Order("party1", (2, 1, 5, 2020), (7, 20, 7, 2020), 2, "red", "started", 32000)
+order5 = Order("Wedding1", (5, 12, 5, 2020), (7, 20, 7, 2020), 1, "green", "started", 25000)
+order6 = Order("Wedding2", (6, 17, 5, 2020), (7, 20, 7, 2020), 1, "yellow", "started", 15000)
 
 daisy_orders = {order1.id: order1, order2.id: order2, order3.id: order3,
                 order4.id: order4, order5.id: order5, order6.id: order6}
@@ -91,20 +92,50 @@ def delete_order():
 def update_order():
     # Change attr order, Mini menu, view or search(linear)
     # Within the order they can edit the priority_code, status, assigned_to, due_date
-    update_choice = input("Would you like to \n"
-                          "1. View the orders \n"
-                          "2. Search for the order by id\n")
-    if update_choice is 1:
+    update_choice = int(input("Would you like to \n"
+                              "1. View the orders \n"
+                              "2. Search for the order by id\n"))
+    if update_choice == 1:
+        view_orders()
+        user_order_choice = int(input("Enter the index of the order you would like to update:\n"))
+        update_menu(user_order_choice)
+
+    elif update_choice is 2:
         pass
-    elif update_choice:
-        pass
+    else:
+        return "The option you entered is invalid"
 
 
 # Function for the second menu
-def update_menu():
+def update_menu(order_id):
     user_update_menu_choice = int(input("Here is what you can update:\n"
-                                        "1. "))
-    pass
+                                        "1. Priority Code\n"
+                                        "2. Status\n"
+                                        "3. Number of staff assigned to the order\n"
+                                        "4. The order's due date\n"))
+    if user_update_menu_choice == 1:
+        print("The current priority code is: " + daisy_orders[order_id].code)
+        priority_code_update = input("Enter new code(Red, Yellow, Green): ")
+        daisy_orders[order_id].code = priority_code_update
+        print("Now " + daisy_orders[order_id].title + " has the code " + daisy_orders[order_id].code)
+
+    elif user_update_menu_choice == 2:
+        print("The current status is: " + daisy_orders[order_id].status)
+        status_update = input("Enter new status(Pending, Ongoing, Complete): ")
+        daisy_orders[order_id].status = status_update
+        print("Now " + daisy_orders[order_id].title + " has the status " + daisy_orders[order_id].status)
+
+    elif user_update_menu_choice == 3:
+        print("The current status is: " + daisy_orders[order_id].labour)
+        labour_update = input("Enter new number of staff assigned to the order: ")
+        daisy_orders[order_id].labour = labour_update
+        print("Now " + daisy_orders[order_id].title + " has " + daisy_orders[order_id].labour
+              + " staff members assigned to it")
+
+    elif user_update_menu_choice == 4:
+        pass
+    else:
+        return "The option you entered is invalid"
 
 
 # mark_as_done function that moves all completed orders to the paid list
@@ -116,7 +147,8 @@ def date_day(month, year):
     day = int(input("Enter the order's due day(1-7): "))
     date = int(input("Enter the order's due date(1-31): "))
     if 1 <= day <= 7 and 1 <= date <= 31:
-        return day, date, month, year
+        order_full_date = arr.array('i', [day, date, month, year])
+        return order_full_date
     else:
         print("Sorry, invalid date or day. Please try again.")
         return date_day(month, year)
@@ -147,3 +179,6 @@ def pick_date():
 
 # Function sort by that will sort orders according to the priority code or date
 # TODO sort by priority code or date using switch
+
+
+# Function to print the date
