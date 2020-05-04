@@ -2,21 +2,17 @@ import calendar
 import time
 import array as arr
 from models.Order import *
+from util.DummyData import *
 
 # Some Dummy orders to test some of the functions
-# TODO add the months here Rachel and change by removing the day of the week
-order1 = Order("Birthday1", arr.array('i', (3, 21, 5, 2020)), arr.array('i', (7, 20, 7, 2020)), 2, "red", "started",
-               1000)
-order2 = Order("Birthday2", (1, 11, 5, 2020), (7, 20, 7, 2020), 1, "yellow", "started", 1000)
-order3 = Order("Birthday3", (7, 30, 5, 2020), (7, 20, 7, 2020), 2, "red", "started", 20000)
-order4 = Order("party1", (2, 1, 5, 2020), (7, 20, 7, 2020), 2, "red", "started", 32000)
-order5 = Order("Wedding1", (5, 12, 5, 2020), (7, 20, 7, 2020), 1, "green", "started", 25000)
-order6 = Order("Wedding2", (6, 17, 5, 2020), (7, 20, 7, 2020), 1, "yellow", "started", 15000)
+# TODO Rachel and change by removing the day of the week
 
 daisy_orders = {order1.id: order1, order2.id: order2, order3.id: order3,
                 order4.id: order4, order5.id: order5, order6.id: order6}
 # TODO populate the date collection
-date_collection = {order1.id: order1.due_date}
+date_collection = {order1.id: order1.due_date, order2.id: order2.due_date,
+                   order3.id: order3.due_date, order4.id: order4.due_date,
+                   order5.id: order5.due_date, order6.id: order6.due_date}
 
 
 # General Program Function
@@ -71,6 +67,7 @@ def enter_order():
     new_order = Order(order_title, order_due_date, order_time_stamp, order_labour, order_code, order_status,
                       order_price)
     daisy_orders[new_order.id] = new_order
+    date_collection[new_order.id] = new_order.due_date
 
 
 # Function that displays the orders
@@ -222,6 +219,7 @@ def display_order_date(date_array):
 
 
 # Function that display one order with all its details
+# TODO this should be a method and not a function. Like  a ToString
 def display_order_details(order_id):
     print("====Order Details====")
     print("Title: " + daisy_orders[order_id].title)

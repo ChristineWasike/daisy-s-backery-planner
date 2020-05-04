@@ -20,11 +20,13 @@ from util.functions import *
 # i = input("Please enter name[Jack]:")
 #
 #
-user_status = 'yes'
-while user_status == 'yes':
-    user_main_menu()
+# user_status = 'yes'
+# while user_status == 'yes':
+#     user_main_menu()
 # update_order()
 # date = arr.array('i', [1, 4, 5, 2020])
 # print(display_order_date(daisy_orders[order1.id].due_date))
 
 # display_order_details(1)
+list = [1, 2, 3, 4]
+print(list[0])
