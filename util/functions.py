@@ -4,8 +4,9 @@ import array as arr
 from models.Order import *
 
 # Some Dummy orders to test some of the functions
-# TODO add the months here Rachel
-order1 = Order("Birthday1", (3, 21, 5, 2020), (7, 20, 7, 2020), 2, "red", "started", 1000)
+# TODO add the months here Rachel and change by removing the day of the week
+order1 = Order("Birthday1", arr.array('i', (3, 21, 5, 2020)), arr.array('i', (7, 20, 7, 2020)), 2, "red", "started",
+               1000)
 order2 = Order("Birthday2", (1, 11, 5, 2020), (7, 20, 7, 2020), 1, "yellow", "started", 1000)
 order3 = Order("Birthday3", (7, 30, 5, 2020), (7, 20, 7, 2020), 2, "red", "started", 20000)
 order4 = Order("party1", (2, 1, 5, 2020), (7, 20, 7, 2020), 2, "red", "started", 32000)
@@ -14,7 +15,7 @@ order6 = Order("Wedding2", (6, 17, 5, 2020), (7, 20, 7, 2020), 1, "yellow", "sta
 
 daisy_orders = {order1.id: order1, order2.id: order2, order3.id: order3,
                 order4.id: order4, order5.id: order5, order6.id: order6}
-
+# TODO populate the date collection
 date_collection = {order1.id: order1.due_date}
 
 
@@ -73,7 +74,7 @@ def enter_order():
 
 
 # Function that displays the orders
-# TODO sort the ids and display in ascending order
+# TODO sort the ids and display in ascending order (view by)
 def view_orders():
     for order in daisy_orders:
         print(str(order) + ". " + daisy_orders[order].title)
@@ -103,7 +104,8 @@ def update_order():
         update_menu(user_order_choice)
 
     elif update_choice is 2:
-        pass
+        user_order_choice = int(input("Enter the index of the order you would like to update:\n"))
+        update_menu(user_order_choice)
     else:
         return "The option you entered is invalid"
 
@@ -156,12 +158,12 @@ def clear_order():
 
 # Comment
 # TODO I need help figuring out how to store the dates in a dictionary. Key? value?
+# TODO Don't ask for day. Generate it from the date.
 def date_day(month, year):
     day = int(input("Enter the order's due day(1-7): "))
     date = int(input("Enter the order's due date(1-31): "))
     if 1 <= day <= 7 and 1 <= date <= 31:
         order_full_date = arr.array('i', [day, date, month, year])
-        print(order_full_date)
         return order_full_date
     else:
         print("Sorry, invalid date or day. Please try again.")
@@ -196,7 +198,7 @@ def pick_date():
 # TODO sort by priority code or date using switch
 
 
-# Function to print the date
+# Function to print the date in a user friendly way
 def display_order_date(date_array):
     week_day = ""
     day = date_array[0]
@@ -219,3 +221,15 @@ def display_order_date(date_array):
     return week_day + " " + str(date_array[1]) + "-" + str(date_array[2]) + "-" + str(date_array[3])
 
 
+# Function that display one order with all its details
+def display_order_details(order_id):
+    print("====Order Details====")
+    print("Title: " + daisy_orders[order_id].title)
+    print("Due date: " + daisy_orders[order_id].due_date)
+    print("Order was made on: " + daisy_orders[order_id].time_stamp)
+    print("Priority code: " + daisy_orders[order_id].code)
+    print("Status: " + daisy_orders[order_id].status)
+    print("Assigned to: " + daisy_orders[order_id].labour)
+    print("Price: " + daisy_orders[order_id].price)
+
+# TODO sort functions (by code and due_date)

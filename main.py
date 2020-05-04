@@ -25,5 +25,6 @@ while user_status == 'yes':
     user_main_menu()
 # update_order()
 # date = arr.array('i', [1, 4, 5, 2020])
-# print(display_order_date(pick_date()))
+# print(display_order_date(daisy_orders[order1.id].due_date))
 
+# display_order_details(1)
