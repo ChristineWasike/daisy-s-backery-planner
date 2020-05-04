@@ -15,6 +15,8 @@ order6 = Order("Wedding2", (6, 17, 5, 2020), (7, 20, 7, 2020), 1, "yellow", "sta
 daisy_orders = {order1.id: order1, order2.id: order2, order3.id: order3,
                 order4.id: order4, order5.id: order5, order6.id: order6}
 
+date_collection = {order1.id: order1.due_date}
+
 
 # General Program Function
 # Function that keeps the program running depending on the users choice
@@ -113,27 +115,36 @@ def update_menu(order_id):
                                         "2. Status\n"
                                         "3. Number of staff assigned to the order\n"
                                         "4. The order's due date\n"))
+    # Option that will update the priority code
     if user_update_menu_choice == 1:
         print("The current priority code is: " + daisy_orders[order_id].code)
         priority_code_update = input("Enter new code(Red, Yellow, Green): ")
         daisy_orders[order_id].code = priority_code_update
         print("Now " + daisy_orders[order_id].title + " has the code " + daisy_orders[order_id].code)
 
+    # Option that will update an order's status
     elif user_update_menu_choice == 2:
         print("The current status is: " + daisy_orders[order_id].status)
         status_update = input("Enter new status(Pending, Ongoing, Complete): ")
         daisy_orders[order_id].status = status_update
         print("Now " + daisy_orders[order_id].title + " has the status " + daisy_orders[order_id].status)
 
+    # Option that will update the number of people assigned to one order
     elif user_update_menu_choice == 3:
-        print("The current status is: " + daisy_orders[order_id].labour)
+        print("The current status is: " + str(daisy_orders[order_id].labour))
         labour_update = input("Enter new number of staff assigned to the order: ")
         daisy_orders[order_id].labour = labour_update
-        print("Now " + daisy_orders[order_id].title + " has " + daisy_orders[order_id].labour
+        print("Now " + daisy_orders[order_id].title + " has " + str(daisy_orders[order_id].labour)
               + " staff members assigned to it")
 
+    # Option that will change due date of an order
     elif user_update_menu_choice == 4:
-        pass
+        print("The current due date is: " + display_order_date(daisy_orders[order_id].due_date))
+        print("Enter new date below:\n")
+        updated_date = pick_date()
+        daisy_orders[order_id].due_date = updated_date
+        print("Now " + daisy_orders[order_id].title + " is due on "
+              + display_order_date(daisy_orders[order_id].due_date))
     else:
         return "The option you entered is invalid"
 
@@ -143,11 +154,14 @@ def clear_order():
     pass
 
 
+# Comment
+# TODO I need help figuring out how to store the dates in a dictionary. Key? value?
 def date_day(month, year):
     day = int(input("Enter the order's due day(1-7): "))
     date = int(input("Enter the order's due date(1-31): "))
     if 1 <= day <= 7 and 1 <= date <= 31:
         order_full_date = arr.array('i', [day, date, month, year])
+        print(order_full_date)
         return order_full_date
     else:
         print("Sorry, invalid date or day. Please try again.")
@@ -177,8 +191,31 @@ def pick_date():
         print(calendar.month(result.tm_year, result.tm_mon))
         return date_day(result.tm_mon, result.tm_year)
 
+
 # Function sort by that will sort orders according to the priority code or date
 # TODO sort by priority code or date using switch
 
 
 # Function to print the date
+def display_order_date(date_array):
+    week_day = ""
+    day = date_array[0]
+    if day == 1:
+        week_day = "Monday"
+    elif day == 2:
+        week_day = "Tuesday"
+    elif day == 3:
+        week_day = "Wednesday"
+    elif day == 4:
+        week_day = "Thursday"
+    elif day == 5:
+        week_day = "Friday"
+    elif day == 6:
+        week_day = "Saturday"
+    elif day == 7:
+        week_day = "Sunday"
+    else:
+        return None
+    return week_day + " " + str(date_array[1]) + "-" + str(date_array[2]) + "-" + str(date_array[3])
+
+

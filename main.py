@@ -20,7 +20,10 @@ from util.functions import *
 # i = input("Please enter name[Jack]:")
 #
 #
-# user_status = 'yes'
-# while user_status == 'yes':
-#     user_main_menu()
-update_order()
+user_status = 'yes'
+while user_status == 'yes':
+    user_main_menu()
+# update_order()
+# date = arr.array('i', [1, 4, 5, 2020])
+# print(display_order_date(pick_date()))
+
