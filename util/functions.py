@@ -3,16 +3,21 @@ import time
 import array as arr
 from models.Order import *
 from util.DummyData import *
+from models.BinarySearch import binarySearch
 
 # Some Dummy orders to test some of the functions
 # TODO Rachel and change by removing the day of the week
 
 daisy_orders = {order1.id: order1, order2.id: order2, order3.id: order3,
-                order4.id: order4, order5.id: order5, order6.id: order6}
-# TODO populate the date collection
+                order4.id: order4, order5.id: order5, order6.id: order6,
+                order7.id: order7, order8.id: order8, order9.id: order9,
+                order10.id: order10}
+
 date_collection = {order1.id: order1.due_date, order2.id: order2.due_date,
                    order3.id: order3.due_date, order4.id: order4.due_date,
-                   order5.id: order5.due_date, order6.id: order6.due_date}
+                   order5.id: order5.due_date, order6.id: order6.due_date,
+                   order7.id: order7.due_date, order8.id: order8.due_date,
+                   order9.id: order9.due_date, order10.id: order10.due_date}
 
 
 # General Program Function
@@ -46,7 +51,7 @@ def user_main_menu():
     elif userOption == 4:
         update_order()
         user_status_type()
-    elif userOption == 2:
+    elif userOption == 5:
         clear_order()
         user_status_type()
     else:
@@ -59,12 +64,11 @@ def enter_order():
     order_title = input("Enter the title: \n")
     order_due_date = pick_date()
     order_time_stamp = (result.tm_mday, result.tm_mon, result.tm_year)
-    order_labour = int(input("How many people are assigned to this task?(enter a number) \n"))
-    order_code = input("Enter order code(Red, Yellow, Green):\n")
-    order_status = input("Enter order status: \n")
-    # TODO 3 options for the status
+    order_staff = int(input("How many people are assigned to this task?(enter a number) \n"))
+    order_code = set_enum_order("code")
+    order_status = set_enum_order("status")
     order_price = int(input("Enter the price of this order:\n"))
-    new_order = Order(order_title, order_due_date, order_time_stamp, order_labour, order_code, order_status,
+    new_order = Order(order_title, order_due_date, order_time_stamp, order_staff, order_code, order_status,
                       order_price)
     daisy_orders[new_order.id] = new_order
     date_collection[new_order.id] = new_order.due_date
@@ -80,9 +84,9 @@ def view_orders():
 # delete function that deletes orders from Daisy's scheduler in case a customer
 def delete_order():
     view_orders()
-    delete = input("Which order do you want to delete?\n")
+    delete = int(input("Enter the corresponding number to delete an order?\n"))
     for order in daisy_orders:
-        if delete == order:
+        if delete == daisy_orders[order].id:
             print(daisy_orders[order].title + " has been removed.")
             daisy_orders.pop(order)
             break
@@ -130,10 +134,10 @@ def update_menu(order_id):
 
     # Option that will update the number of people assigned to one order
     elif user_update_menu_choice == 3:
-        print("The current status is: " + str(daisy_orders[order_id].labour))
-        labour_update = input("Enter new number of staff assigned to the order: ")
-        daisy_orders[order_id].labour = labour_update
-        print("Now " + daisy_orders[order_id].title + " has " + str(daisy_orders[order_id].labour)
+        print("The current status is: " + str(daisy_orders[order_id].staff))
+        staff_update = input("Enter new number of staff assigned to the order: ")
+        daisy_orders[order_id].staff = staff_update
+        print("Now " + daisy_orders[order_id].title + " has " + str(daisy_orders[order_id].staff)
               + " staff members assigned to it")
 
     # Option that will change due date of an order
@@ -150,11 +154,14 @@ def update_menu(order_id):
 
 # mark_as_done function that moves all completed orders to the paid list
 def clear_order():
+    # user_input = int(input("Enter the number corresponding to the order: "))
+    # order_id_list = list(daisy_orders.keys())
+    # if binarySearch(order_id_list, user_input) is True:
+    #     daisy_orders[user_input].status =
     pass
 
 
-# Comment
-# TODO I need help figuring out how to store the dates in a dictionary. Key? value?
+# This function was added get the date input from the user
 # TODO Don't ask for day. Generate it from the date.
 def date_day(month, year):
     day = int(input("Enter the order's due day(1-7): "))
@@ -218,16 +225,32 @@ def display_order_date(date_array):
     return week_day + " " + str(date_array[1]) + "-" + str(date_array[2]) + "-" + str(date_array[3])
 
 
-# Function that display one order with all its details
-# TODO this should be a method and not a function. Like  a ToString
-def display_order_details(order_id):
-    print("====Order Details====")
-    print("Title: " + daisy_orders[order_id].title)
-    print("Due date: " + daisy_orders[order_id].due_date)
-    print("Order was made on: " + daisy_orders[order_id].time_stamp)
-    print("Priority code: " + daisy_orders[order_id].code)
-    print("Status: " + daisy_orders[order_id].status)
-    print("Assigned to: " + daisy_orders[order_id].labour)
-    print("Price: " + daisy_orders[order_id].price)
-
 # TODO sort functions (by code and due_date)
+def sort_orders():
+    pass
+
+
+# Function that returns enum values for each order's priority code and status
+def set_enum_order(instance_var):
+    priority_code_list = [PriorityCode(1), PriorityCode(2), PriorityCode(3)]
+    order_status_list = [Status(1), Status(2), Status(3)]
+    if instance_var == "code":
+        user_input = input("Enter order code(Red, Yellow, Green):\n")
+        if user_input == priority_code_list[0].name:
+            return priority_code_list[0].name
+        elif user_input == priority_code_list[1].name:
+            return priority_code_list[1].name
+        elif user_input == priority_code_list[2].name:
+            return priority_code_list[2].name
+        else:
+            return "The code you entered is invalid"
+    elif instance_var == "status":
+        user_input = input("Enter order status(Pending, Ongoing, Completed): \n")
+        if user_input == order_status_list[0].name:
+            return order_status_list[0].name
+        elif user_input == order_status_list[1].name:
+            return order_status_list[1].name
+        elif user_input == order_status_list[2].name:
+            return order_status_list[2].name
+        else:
+            return "The code you entered is invalid"

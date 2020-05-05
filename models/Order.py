@@ -1,5 +1,6 @@
 import enum
 import itertools
+from util.functions import *
 
 
 class Order:
@@ -11,10 +12,20 @@ class Order:
         self.title = title
         self.due_date = due_date
         self.time_stamp = time_stamp
-        self.labour = assigned_to
+        self.staff = assigned_to
         self.code = priority_code
         self.status = status
         self.price = price
+
+    def display_order(self):
+        print("========Order Details========")
+        print("Title: " + self.title)
+        print("Due date: " + display_order_date(self.due_date))
+        print("Order was made on: " + display_order_date(self.time_stamp))
+        print("Priority code: " + self.code)
+        print("Status: " + self.status)
+        print("Assigned to: " + str(self.staff))
+        print("Price(Rwf): " + str(self.price))
 
 
 class PriorityCode(enum.Enum):
@@ -27,3 +38,6 @@ class Status(enum.Enum):
     Pending = 1
     Ongoing = 2
     Complete = 3
+
+
+print(PriorityCode.Red.value)
