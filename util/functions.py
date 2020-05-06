@@ -1,25 +1,21 @@
 import calendar
 import time
 from util.DummyData import *
-from models.BinarySearch import *
 from models.BinarySearch import binarySearch
 
-# TODO Handle Type Error from User Input
 
 # Some Dummy orders to test some of the functions
 # TODO Rachel and change by removing the day of the week
 
-daisy_orders = {order1.id: order1, order2.id: order2, order3.id: order3,
-                order4.id: order4, order5.id: order5, order6.id: order6,
-                order7.id: order7, order8.id: order8, order9.id: order9,
-                order10.id: order10}
 
-date_collection = {order1.id: order1.due_date, order2.id: order2.due_date,
-                   order3.id: order3.due_date, order4.id: order4.due_date,
-                   order5.id: order5.due_date, order6.id: order6.due_date,
-                   order7.id: order7.due_date, order8.id: order8.due_date,
-                   order9.id: order9.due_date, order10.id: order10.due_date}
-
+# TODO Handle Type Error from User Input
+def value_error_handler_integer(user_input):
+    try:
+        user_input_int = int(user_input)
+        return user_input_int
+    except ValueError:
+        print("\nPlease enter integers only!!\n")
+        return False
 
 # General Program Function
 # Function that keeps the program running depending on the users choice
@@ -39,24 +35,29 @@ def user_main_menu():
           "3. Delete Orders\n" +
           "4. Update Orders\n"
           "5. Clear Orders\n")
-    userOption = int(input("Enter a number corresponding to the option you want:"))
-    if userOption == 1:
-        enter_order()
-        user_status_type()
-    elif userOption == 2:
-        view_orders()
-        user_status_type()
-    elif userOption == 3:
-        delete_order()
-        user_status_type()
-    elif userOption == 4:
-        update_order()
-        user_status_type()
-    elif userOption == 5:
-        clear_order()
-        user_status_type()
+    userOption = input("Enter a number corresponding to the option you want:")
+    user_option_int = value_error_handler_integer(userOption)
+    if not user_option_int:
+        pass
     else:
-        print("The option you chose is invalid.")
+        if user_option_int == 1:
+            enter_order()
+            user_status_type()
+        elif user_option_int == 2:
+            view_orders()
+            user_status_type()
+        elif user_option_int == 3:
+            delete_order()
+            user_status_type()
+        elif user_option_int == 4:
+            update_order()
+            user_status_type()
+        elif user_option_int == 5:
+            clear_order()
+            user_status_type()
+        else:
+            print("The option you chose is invalid.")
+            user_status_type()
 
 
 # Function to collect instant variables and creates order instance
