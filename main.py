@@ -15,7 +15,7 @@ from util.functions import *
 # display_order_details(1)
 # a_list = [1, 2, 3, 4]
 # print(a_list[0])
-print(update_order())
+print(user_status_type())
 # my_code = [PriorityCode(1), PriorityCode(2), PriorityCode(3)]
 # count = 0
 # for x in my_code:

@@ -4,7 +4,15 @@ from util.DummyData import *
 from models.BinarySearch import *
 from models.BinarySearch import binarySearch
 
+
 # TODO Handle Type Error from User Input
+
+def error_handler(user_input, query):
+    try:
+        user_input = query
+    except ValueError:
+        print("Oops invalid input type.")
+
 
 # Some Dummy orders to test some of the functions
 # TODO Rachel and change by removing the day of the week
@@ -24,9 +32,12 @@ date_collection = {order1.id: order1.due_date, order2.id: order2.due_date,
 # General Program Function
 # Function that keeps the program running depending on the users choice
 def user_status_type():
-    user_status = input("Do you want to continue? Y/N\n").lower()
+    user_status = input("Do you want to continue? Y/N\n")
+    error_handler(user_status, user_status.lower())
     if user_status == 'n' or user_status == 'no':
         exit()
+    else:
+        user_main_menu()
     return user_status
 
 
@@ -101,6 +112,8 @@ def update_order():
                               "1. View the orders \n"
                               "2. Search for the order by id\n"
                               "3. Search for the order by title\n"))
+
+    error_handler()
     if update_choice == 1:
         view_orders()
         user_order_choice = int(input("Enter the index of the order you would like to update:\n"))
