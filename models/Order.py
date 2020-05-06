@@ -20,8 +20,8 @@ class Order:
     def display_order(self):
         print("========Order Details========")
         print("Title: " + self.title)
-        print("Due date: " + display_order_date(self.due_date))
-        print("Order was made on: " + display_order_date(self.time_stamp))
+        print("Due date: " + str(self.due_date))
+        print("Order was made on: " + str(self.time_stamp))
         print("Priority code: " + self.code)
         print("Status: " + self.status)
         print("Assigned to: " + str(self.staff))
@@ -38,4 +38,3 @@ class Status(enum.Enum):
     Pending = 1
     Ongoing = 2
     Complete = 3
-
