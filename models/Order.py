@@ -40,4 +40,3 @@ class Status(enum.Enum):
     Complete = 3
 
 
-print(PriorityCode.Red.value)
