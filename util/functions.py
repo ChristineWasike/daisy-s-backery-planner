@@ -1,6 +1,7 @@
-import calendar
-import time
-import numpy as num
+import calendar as calendar
+import time as time
+
+from models.Stack import *
 from util.DummyData import *
 from models.BinarySearch import binarySearch
 from models.CompletedOrder import *
@@ -221,16 +222,17 @@ def clear_order():
     user_input = int(input("Enter the number corresponding to the order: "))
     order_id_list = list(daisy_orders.keys())
     if binarySearch(order_id_list, user_input):
-        print("The order " + daisy_orders[user_input].title + "is going to be cleared.")
+        print("The order " + daisy_orders[user_input].title + " is going to be cleared.")
         daisy_orders[user_input].status = order_status_list[2]
         order_title = daisy_orders[user_input].title
         order_price = daisy_orders[user_input].price
         new_status = daisy_orders[user_input].status
         order_staff = daisy_orders[user_input].staff
-        d0 = daisy_orders[user_input].time_stamp
-        d1 = daisy_orders[user_input].due_date
-        order_time = d1 - d0
+        d0 = daisy_orders[user_input].time_stamp.day
+        d1 = daisy_orders[user_input].due_date.day
+        order_time = d0 - d1
         cleared_order = CompletedOrder(order_title, order_time, order_price, order_staff)
+        print(cleared_order)
 
 
 # This function was added get the date input from the user
@@ -332,8 +334,11 @@ def view_order_details():
         # TODO I have repeated code from line 139
         if binarySearch(list(daisy_orders.keys()), order_id):
             return daisy_orders.get(order_id).display_order()
+    elif order_details_choice == "n" or order_details_choice == order_details_choice == "no" or order_details_choice == \
+            "nope" or order_details_choice == "nah":
+        pass
     else:
-        exit()
+        pass
 
 
 # Function that returns enum values for each order's priority code and status
