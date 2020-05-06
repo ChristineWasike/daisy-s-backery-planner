@@ -81,8 +81,20 @@ def enter_order():
 
 # Function that displays the orders
 def view_orders():
-    for order in daisy_orders:
-        print(str(order) + ". " + daisy_orders[order].title)
+    view_by_str = input("View orders by:\n"
+                        "1. Id\n"
+                        "2. Title\n")
+
+    view_by = value_error_handler_integer(view_by_str)
+    if not view_by:
+        pass
+    if view_by == 1:
+        for order in daisy_orders:
+            print(str(order) + ". " + daisy_orders[order].title)
+    elif view_by == 2:
+        sort_orders_by_title()
+    else:
+        print("Invalid choice entered.")
 
 
 # delete function that deletes orders from Daisy's scheduler in case a customer
@@ -228,7 +240,7 @@ def date_day(month, year):
     date_str = input("Enter the order's due date(1-31): ")
     date = value_error_handler_integer(date_str)
     if 1 <= day <= 7 and 1 <= date <= 31:
-        order_full_date = arr.array('i', [day, date, month, year])
+        order_full_date = Date(day, date, month, year)
         return order_full_date
     else:
         print("Sorry, invalid date or day. Please try again.")
@@ -289,6 +301,39 @@ def display_order_date(date_array):
 # TODO sort functions (by code and due_date)
 def sort_orders():
     pass
+
+
+def sort_orders_by_title():
+    list_of_titles_ids = []
+    for order in daisy_orders:
+        list_of_titles_ids.append([daisy_orders[order].title, order])
+    sorted_list_of_titles_ids = sorted(list_of_titles_ids)
+
+    for order in sorted_list_of_titles_ids:
+        print(str(order[1]) + ". " + order[0] + ".")
+    view_order_details()
+
+
+def sort_orders_by_priority_code():
+    pass
+
+
+def sort_orders_by_status():
+    pass
+
+
+def view_order_details():
+    order_details_choice = input("\nWould you like to view details of a specific order? Y/N\n").lower()
+
+    if order_details_choice == "y" or order_details_choice == order_details_choice == "yes" or order_details_choice == \
+            "yeah" or order_details_choice == "yah":
+        order_id_str = input("Kindly type in the order id(integer) of the order here:\n")
+        order_id = value_error_handler_integer(order_id_str)
+        # TODO I have repeated code from line 139
+        if binarySearch(list(daisy_orders.keys()), order_id):
+            return daisy_orders.get(order_id).display_order()
+    else:
+        exit()
 
 
 # Function that returns enum values for each order's priority code and status
