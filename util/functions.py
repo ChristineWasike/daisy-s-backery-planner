@@ -1,7 +1,5 @@
 import calendar
 import time
-import array as arr
-from models.Order import *
 from util.DummyData import *
 
 # Some Dummy orders to test some of the functions
@@ -106,6 +104,9 @@ def update_order():
     else:
         return "The option you entered is invalid"
 
+def test_list_keys():
+
+    list(daisy_orders.keys())
 
 # Function for the second menu
 def update_menu(order_id):

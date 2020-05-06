@@ -28,5 +28,6 @@ from util.functions import *
 # print(display_order_date(daisy_orders[order1.id].due_date))
 
 # display_order_details(1)
-list = [1, 2, 3, 4]
-print(list[0])
+a_list = [1, 2, 3, 4]
+print(a_list[0])
+print(test_list_keys())
