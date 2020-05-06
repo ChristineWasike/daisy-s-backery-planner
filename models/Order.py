@@ -39,4 +39,3 @@ class Status(enum.Enum):
     Ongoing = 2
     Complete = 3
 
-

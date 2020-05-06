@@ -1,9 +1,10 @@
 import calendar
 import time
-import array as arr
-from models.Order import *
 from util.DummyData import *
+from models.BinarySearch import *
 from models.BinarySearch import binarySearch
+
+# TODO Handle Type Error from User Input
 
 # Some Dummy orders to test some of the functions
 # TODO Rachel and change by removing the day of the week
@@ -98,17 +99,52 @@ def update_order():
     # Within the order they can edit the priority_code, status, assigned_to, due_date
     update_choice = int(input("Would you like to \n"
                               "1. View the orders \n"
-                              "2. Search for the order by id\n"))
+                              "2. Search for the order by id\n"
+                              "3. Search for the order by title\n"))
     if update_choice == 1:
         view_orders()
         user_order_choice = int(input("Enter the index of the order you would like to update:\n"))
         update_menu(user_order_choice)
 
     elif update_choice is 2:
-        user_order_choice = int(input("Enter the index of the order you would like to update:\n"))
-        update_menu(user_order_choice)
+        return search_by_order_id()
+
+    elif update_choice is 3:
+        return search_order_by_title()
+
     else:
         return "The option you entered is invalid"
+
+
+# Searching orders by id
+def search_by_order_id():
+    user_order_choice = int(input("Enter the index of the order you would like to search for:\n"))
+    if binarySearch(list(daisy_orders.keys()), user_order_choice):
+        update_menu(user_order_choice)
+    else:
+        print("Unable to find the order you're looking for.")
+
+
+# Searching orders by title
+def search_order_by_title():
+    user_order_choice = input("Enter the title of the order you would like to search for:\n")
+    list_of_titles_ids = []
+    list_of_titles = []
+    for order in daisy_orders:
+        list_of_titles_ids.append([daisy_orders[order].title, order])
+    sorted_list_of_titles_ids = sorted(list_of_titles_ids)
+    order_id = [key for (value, key) in sorted_list_of_titles_ids if value == user_order_choice]
+
+    for order in daisy_orders:
+        list_of_titles.append(daisy_orders[order].title)
+    sorted_list_of_titles = sorted(list_of_titles)
+
+    if binarySearch(sorted_list_of_titles, user_order_choice):
+        # TODO Might be temporary
+        print("Item found.")
+        update_menu(order_id[0])
+    else:
+        print("Unable to find the order you're looking for.")
 
 
 # Function for the second menu
