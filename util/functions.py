@@ -4,13 +4,6 @@ from util.DummyData import *
 from models.BinarySearch import binarySearch
 
 
-def error_handler(user_input, query):
-    try:
-        user_input = query
-    except ValueError:
-        print("Oops invalid input type.")
-
-
 # Handle Type Error Integer from User Input
 def value_error_handler_integer(user_input):
     try:
@@ -25,7 +18,6 @@ def value_error_handler_integer(user_input):
 # Function that keeps the program running depending on the users choice
 def user_status_type():
     user_status = input("Do you want to continue? Y/N\n")
-    error_handler(user_status, user_status.lower())
     if user_status == 'n' or user_status == 'no':
         exit()
     else:
@@ -37,9 +29,9 @@ def user_status_type():
 def user_main_menu():
     print("=====Welcome to Daisy's Planner=====")
     print("========= Menu Options =============")
-    print("1. Enter Order\n" +
-          "2. View Orders\n" +
-          "3. Delete Orders\n" +
+    print("1. Enter Order\n"
+          "2. View Orders\n"
+          "3. Delete Orders\n"
           "4. Update Orders\n"
           "5. Clear Orders\n")
     userOption = input("Enter a number corresponding to the option you want:")
@@ -84,7 +76,6 @@ def enter_order():
 
 
 # Function that displays the orders
-# TODO sort the ids and display in ascending order (view by)
 def view_orders():
     for order in daisy_orders:
         print(str(order) + ". " + daisy_orders[order].title)
@@ -110,7 +101,7 @@ def update_order():
                               "2. Search for the order by id\n"
                               "3. Search for the order by title\n"))
 
-    error_handler()
+    # error_handler()
     if update_choice == 1:
         view_orders()
         user_order_choice = int(input("Enter the index of the order you would like to update:\n"))
@@ -208,7 +199,6 @@ def clear_order():
 
 
 # This function was added get the date input from the user
-# TODO Don't ask for day. Generate it from the date.
 def date_day(month, year):
     day = int(input("Enter the order's due day(1-7): "))
     date = int(input("Enter the order's due date(1-31): "))
