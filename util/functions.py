@@ -1,7 +1,9 @@
 import calendar
 import time
+import numpy as num
 from util.DummyData import *
 from models.BinarySearch import binarySearch
+from models.CompletedOrder import *
 
 
 # Handle Type Error Integer from User Input
@@ -202,11 +204,21 @@ def update_menu(order_id):
 
 # mark_as_done function that moves all completed orders to the paid list
 def clear_order():
-    # user_input = int(input("Enter the number corresponding to the order: "))
-    # order_id_list = list(daisy_orders.keys())
-    # if binarySearch(order_id_list, user_input) is True:
-    #     daisy_orders[user_input].status =
-    pass
+    order_status_list = [Status(1), Status(2), Status(3)]
+    view_orders()
+    user_input = int(input("Enter the number corresponding to the order: "))
+    order_id_list = list(daisy_orders.keys())
+    if binarySearch(order_id_list, user_input):
+        print("The order " + daisy_orders[user_input].title + "is going to be cleared.")
+        daisy_orders[user_input].status = order_status_list[2]
+        order_title = daisy_orders[user_input].title
+        order_price = daisy_orders[user_input].price
+        new_status = daisy_orders[user_input].status
+        order_staff = daisy_orders[user_input].staff
+        d0 = daisy_orders[user_input].time_stamp
+        d1 = daisy_orders[user_input].due_date
+        order_time = d1 - d0
+        cleared_order = CompletedOrder(order_title, order_time, order_price, order_staff)
 
 
 # This function was added get the date input from the user
