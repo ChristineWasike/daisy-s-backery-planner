@@ -65,12 +65,14 @@ def enter_order():
     order_title = input("Enter the title: \n")
     order_due_date = pick_date()
     order_time_stamp = (result.tm_mday, result.tm_mon, result.tm_year)
-    order_staff = int(input("How many people are assigned to this task?(enter a number) \n"))
+    order_staff = input("How many people are assigned to this task?(enter a number) \n")
+    order_staff_int = value_error_handler_integer(order_staff)
     order_code = set_enum_order("code")
     order_status = set_enum_order("status")
-    order_price = int(input("Enter the price of this order:\n"))
-    new_order = Order(order_title, order_due_date, order_time_stamp, order_staff, order_code, order_status,
-                      order_price)
+    order_price = input("Enter the price of this order:\n")
+    order_price_int = value_error_handler_integer(order_price)
+    new_order = Order(order_title, order_due_date, order_time_stamp, order_staff_int, order_code, order_status,
+                      order_price_int)
     daisy_orders[new_order.id] = new_order
     date_collection[new_order.id] = new_order.due_date
 
@@ -84,7 +86,8 @@ def view_orders():
 # delete function that deletes orders from Daisy's scheduler in case a customer
 def delete_order():
     view_orders()
-    delete = int(input("Enter the corresponding number to delete an order?\n"))
+    delete_str = input("Enter the corresponding number to delete an order?\n")
+    delete = value_error_handler_integer(delete_str)
     for order in daisy_orders:
         if delete == daisy_orders[order].id:
             print(daisy_orders[order].title + " has been removed.")
@@ -96,15 +99,18 @@ def delete_order():
 def update_order():
     # Change attr order, Mini menu, view or search(linear)
     # Within the order they can edit the priority_code, status, assigned_to, due_date
-    update_choice = int(input("Would you like to \n"
+    update_choice_str = input("Would you like to \n"
                               "1. View the orders \n"
                               "2. Search for the order by id\n"
-                              "3. Search for the order by title\n"))
+                              "3. Search for the order by title\n")
 
-    # error_handler()
+    update_choice = value_error_handler_integer(update_choice_str)
+    if not update_choice:
+        pass
     if update_choice == 1:
         view_orders()
-        user_order_choice = int(input("Enter the index of the order you would like to update:\n"))
+        user_order_choice_str = int(input("Enter the index of the order you would like to update:\n"))
+        user_order_choice = value_error_handler_integer(user_order_choice_str)
         update_menu(user_order_choice)
 
     elif update_choice is 2:
@@ -119,7 +125,8 @@ def update_order():
 
 # Searching orders by id
 def search_by_order_id():
-    user_order_choice = int(input("Enter the index of the order you would like to search for:\n"))
+    user_order_choice_str = input("Enter the index of the order you would like to search for:\n")
+    user_order_choice = value_error_handler_integer(user_order_choice_str)
     if binarySearch(list(daisy_orders.keys()), user_order_choice):
         update_menu(user_order_choice)
     else:
@@ -150,11 +157,15 @@ def search_order_by_title():
 
 # Function for the second menu
 def update_menu(order_id):
-    user_update_menu_choice = int(input("Here is what you can update:\n"
+    user_update_menu_choice_str = input("Here is what you can update:\n"
                                         "1. Priority Code\n"
                                         "2. Status\n"
                                         "3. Number of staff assigned to the order\n"
-                                        "4. The order's due date\n"))
+                                        "4. The order's due date\n")
+    user_update_menu_choice = value_error_handler_integer(user_update_menu_choice_str)
+
+    if not user_update_menu_choice:
+        pass
     # Option that will update the priority code
     if user_update_menu_choice == 1:
         print("The current priority code is: " + daisy_orders[order_id].code)
@@ -200,8 +211,10 @@ def clear_order():
 
 # This function was added get the date input from the user
 def date_day(month, year):
-    day = int(input("Enter the order's due day(1-7): "))
-    date = int(input("Enter the order's due date(1-31): "))
+    day_str = input("Enter the order's due day(1-7): ")
+    day = value_error_handler_integer(day_str)
+    date_str = input("Enter the order's due date(1-31): ")
+    date = value_error_handler_integer(date_str)
     if 1 <= day <= 7 and 1 <= date <= 31:
         order_full_date = arr.array('i', [day, date, month, year])
         return order_full_date
