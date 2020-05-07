@@ -98,8 +98,10 @@ def view_orders():
     if view_by == 1:
         for order in daisy_orders:
             print(str(order) + ". " + daisy_orders[order].title)
+            view_order_details()
     elif view_by == 2:
         sort_orders_by_title()
+        view_order_details()
     else:
         print("Invalid choice entered.")
 
@@ -309,7 +311,6 @@ def sort_orders_by_title():
 
     for order in sorted_list_of_titles_ids:
         print(str(order[1]) + ". " + order[0] + ".")
-    view_order_details()
 
 
 def sort_orders_by_priority_code():
