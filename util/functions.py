@@ -1,14 +1,10 @@
-import calendar
-import time
+import calendar as calendar
+import time as time
+
+from models.Stack import *
 from util.DummyData import *
 from models.BinarySearch import binarySearch
-
-
-def error_handler(user_input, query):
-    try:
-        user_input = query
-    except ValueError:
-        print("Oops invalid input type.")
+from models.CompletedOrder import *
 
 
 # Handle Type Error Integer from User Input
@@ -25,7 +21,6 @@ def value_error_handler_integer(user_input):
 # Function that keeps the program running depending on the users choice
 def user_status_type():
     user_status = input("Do you want to continue? Y/N\n")
-    error_handler(user_status, user_status.lower())
     if user_status == 'n' or user_status == 'no':
         exit()
     else:
@@ -37,9 +32,9 @@ def user_status_type():
 def user_main_menu():
     print("=====Welcome to Daisy's Planner=====")
     print("========= Menu Options =============")
-    print("1. Enter Order\n" +
-          "2. View Orders\n" +
-          "3. Delete Orders\n" +
+    print("1. Enter Order\n"
+          "2. View Orders\n"
+          "3. Delete Orders\n"
           "4. Update Orders\n"
           "5. Clear Orders\n")
     userOption = input("Enter a number corresponding to the option you want:")
@@ -86,7 +81,6 @@ def enter_order():
 
 
 # Function that displays the orders
-# TODO sort the ids and display in ascending order (view by)
 def view_orders():
     view_by_str = input("View orders by:\n"
                         "1. Id\n"
@@ -225,15 +219,25 @@ def update_menu(order_id):
 
 # mark_as_done function that moves all completed orders to the paid list
 def clear_order():
-    # user_input = int(input("Enter the number corresponding to the order: "))
-    # order_id_list = list(daisy_orders.keys())
-    # if binarySearch(order_id_list, user_input) is True:
-    #     daisy_orders[user_input].status =
-    pass
+    order_status_list = [Status(1), Status(2), Status(3)]
+    view_orders()
+    user_input = int(input("Enter the number corresponding to the order: "))
+    order_id_list = list(daisy_orders.keys())
+    if binarySearch(order_id_list, user_input):
+        print("The order " + daisy_orders[user_input].title + " is going to be cleared.")
+        daisy_orders[user_input].status = order_status_list[2]
+        order_title = daisy_orders[user_input].title
+        order_price = daisy_orders[user_input].price
+        new_status = daisy_orders[user_input].status
+        order_staff = daisy_orders[user_input].staff
+        d0 = daisy_orders[user_input].time_stamp.day
+        d1 = daisy_orders[user_input].due_date.day
+        order_time = d0 - d1
+        cleared_order = CompletedOrder(order_title, order_time, order_price, order_staff)
+        print(cleared_order)
 
 
 # This function was added get the date input from the user
-# TODO Don't ask for day. Generate it from the date.
 def date_day(month, year):
     day_str = input("Enter the order's due day(1-7): ")
     day = value_error_handler_integer(day_str)
@@ -331,8 +335,11 @@ def view_order_details():
         # TODO I have repeated code from line 139
         if binarySearch(list(daisy_orders.keys()), order_id):
             return daisy_orders.get(order_id).display_order()
+    elif order_details_choice == "n" or order_details_choice == order_details_choice == "no" or order_details_choice == \
+            "nope" or order_details_choice == "nah":
+        pass
     else:
-        exit()
+        pass
 
 
 # Function that returns enum values for each order's priority code and status
