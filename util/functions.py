@@ -3,7 +3,7 @@ import time as time
 
 from models.Stack import *
 from util.DummyData import *
-from models.BinarySearch import binarySearch
+from models.BinarySearch import *
 from models.CompletedOrder import *
 
 
@@ -275,10 +275,6 @@ def pick_date():
         return date_day(result.tm_mon, result.tm_year)
 
 
-# Function sort by that will sort orders according to the priority code or date
-# TODO sort by priority code or date using switch
-
-
 # Function to print the date in a user friendly way
 def display_order_date(date_array):
     week_day = ""
@@ -302,6 +298,8 @@ def display_order_date(date_array):
     return week_day + " " + str(date_array[1]) + "-" + str(date_array[2]) + "-" + str(date_array[3])
 
 
+# Function sort by that will sort orders according to the priority code or date
+# TODO sort by priority code or date using switch
 # TODO sort functions (by code and due_date)
 def sort_orders():
     pass
@@ -318,7 +316,13 @@ def sort_orders_by_title():
 
 
 def sort_orders_by_priority_code():
-    pass
+    list_by_priority = []
+    for order in daisy_orders:
+        list_by_priority.append([daisy_orders[order].code.value, daisy_orders[order].title, order])
+    sorted_list_by_priority = sorted(list_by_priority)
+
+    for order in sorted_list_by_priority:
+        print(str(order[2]) + ". " + order[1] + ".")
 
 
 def sort_orders_by_status():
@@ -347,7 +351,7 @@ def set_enum_order(instance_var):
     priority_code_list = [PriorityCode(1), PriorityCode(2), PriorityCode(3)]
     order_status_list = [Status(1), Status(2), Status(3)]
     if instance_var == "code":
-        user_input = input("Enter order code(Red, Yellow, Green):\n")
+        user_input = input("Enter order code(Red, Yellow, Green):\n").capitalize()
         if user_input == priority_code_list[0].name:
             return priority_code_list[0].name
         elif user_input == priority_code_list[1].name:
