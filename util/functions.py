@@ -327,6 +327,14 @@ def sort_orders_by_priority_code():
 
 
 def sort_orders_by_status():
+    list_by_priority = []
+    for order in daisy_orders:
+        list_by_priority.append(
+            [daisy_orders[order].status.value, daisy_orders[order].status.name, daisy_orders[order].title, order])
+    sorted_list_by_priority = sorted(list_by_priority)
+
+    for order in sorted_list_by_priority:
+        print(str(order[3]) + ". " + order[2] + "(" + order[1] + ").")
     pass
 
 

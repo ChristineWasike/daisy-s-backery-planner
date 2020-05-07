@@ -11,4 +11,4 @@ from util.functions import *
 # while user_status == 'yes':
 #     user_main_menu()
 
-sort_orders_by_priority_code()
+sort_orders_by_status()
